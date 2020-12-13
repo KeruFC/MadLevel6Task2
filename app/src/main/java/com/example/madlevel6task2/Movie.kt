@@ -5,10 +5,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
-data class AllMovies (
-    @SerializedName("results") val results : List<Movie>
-)
-
 @Parcelize
 data class Movie (
     @SerializedName("vote_average") val voteAverage : Double,
