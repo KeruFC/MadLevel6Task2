@@ -12,6 +12,7 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
 
     private val moviesRepository = MovieRepository()
     val movies = moviesRepository.movies
+    val selectedMovie: MutableLiveData<Movie> = MutableLiveData()
 
 
     private val _errorText: MutableLiveData<String> = MutableLiveData()

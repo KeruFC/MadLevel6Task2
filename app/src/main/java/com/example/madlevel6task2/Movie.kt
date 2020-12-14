@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
-@Parcelize
 data class Movie (
     @SerializedName("vote_average") val voteAverage : Double,
     @SerializedName("backdrop_path") val backdropPath : String,
@@ -13,11 +12,7 @@ data class Movie (
     @SerializedName("poster_path") val posterPath : String,
     @SerializedName("title") val title : String,
     @SerializedName("release_date") val releaseDate : String
-) : Parcelable {
-    fun getPosterUrl(): String {
-        return "https://image.tmdb.org/t/p/original%s".format(posterPath)
-    }
-    fun getBackdropUrl(): String {
-        return "https://image.tmdb.org/t/p/original%s".format(backdropPath)
-    }
+) {
+    fun getPosterURL() = "https://image.tmdb.org/t/p/w500${posterPath}"
+    fun getBackDropURL() = "https://image.tmdb.org/t/p/w500${backdropPath}"
 }

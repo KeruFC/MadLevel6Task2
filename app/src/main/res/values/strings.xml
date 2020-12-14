@@ -11,5 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="the_most_popular_movies_of">The most popular movies of</string>
     <string name="submit">SUBMIT</string>
-    <string name="tv_movie_number">placeholdertext</string>
+    <string name="tv_movie_number">%d.</string>
 </resources>

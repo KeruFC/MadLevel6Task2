@@ -24,10 +24,9 @@ class MovieAdapter(private val movies: List<Movie>, private val onClick: (Movie)
         @SuppressLint("StringFormatInvalid")
         fun bind(movie: Movie) {
 
-            itemView.tvMovieNumber.text =
-                    itemView.resources.getString(R.string.tv_movie_number, adapterPosition + 1)
+            itemView.tvMovieNumber.text = context.getString(R.string.tv_movie_number, adapterPosition + 1)
 
-            Glide.with(context).load(movie.getPosterUrl()).into(itemView.ivPoster)
+            Glide.with(context).load(movie.getPosterURL()).into(itemView.ivMovieThumbnail)
         }
     }
 
@@ -39,7 +38,11 @@ class MovieAdapter(private val movies: List<Movie>, private val onClick: (Movie)
         )
     }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int {
+        return movies.size
+    }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(movies[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int){
+        holder.bind(movies[position])
+    }
 }

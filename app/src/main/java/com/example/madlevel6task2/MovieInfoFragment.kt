@@ -6,12 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.fragment_movie_info.*
+import kotlinx.android.synthetic.main.item_movie.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class MovieInfoFragment : Fragment() {
+    private val viewModel: MovieViewModel by activityViewModels()
+    private lateinit var currentMovie : Movie
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -23,9 +29,17 @@ class MovieInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
 
-//        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
+    private fun initViews() {
+        currentMovie = viewModel.selectedMovie.value!!
+
+        Glide.with(requireContext()).load(currentMovie.getPosterURL()).into(ivMovieThumbnail)
+        Glide.with(requireContext()).load(currentMovie.getBackDropURL()).into(ivPoster)
+        tvRelease.text = currentMovie.releaseDate
+        tvOverview.text = currentMovie.overview
+        tvTitle.text = currentMovie.title
+        tvRating.text = currentMovie.voteAverage.toString()
     }
 }
