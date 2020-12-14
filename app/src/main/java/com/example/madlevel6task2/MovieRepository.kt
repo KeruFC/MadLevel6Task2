@@ -6,11 +6,15 @@ import kotlinx.coroutines.withTimeout
 
 class MovieRepository {
     private val movieApiService: MovieApiService = MovieApi.createApi()
-
+    var movie: MutableLiveData<Movie> = MutableLiveData()
     private val _movies: MutableLiveData<List<Movie>> = MutableLiveData()
 
     val movies: LiveData<List<Movie>>
         get() = _movies
+
+    fun showMovie(newMovie: Movie) {
+        movie.value = newMovie
+    }
 
     suspend fun getMovies(year: String) {
         try {

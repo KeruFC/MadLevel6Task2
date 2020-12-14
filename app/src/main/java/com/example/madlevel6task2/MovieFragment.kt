@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Button
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +19,9 @@ import kotlinx.android.synthetic.main.fragment_movie.*
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class MovieFragment : Fragment() {
+    private val viewModel: MovieViewModel by activityViewModels()
+    private val movies = arrayListOf<Movie>()
+    private var movieSelectAdapter = MovieAdapter(movies, ::onMovieClick)
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -27,10 +33,38 @@ class MovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        view.findViewById<Button>(R.id.btSubmit).setOnClickListener {
-////            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//            val year = Integer.parseInt(etYear.text.toString())
-//        }
+        initViews()
+        observeMovies()
     }
+
+    private fun initViews(){
+        rvMovies.layoutManager = GridLayoutManager(requireActivity(), 2)
+        rvMovies.adapter = movieSelectAdapter
+
+        btSubmit.setOnClickListener { onSubmitClick() }
+    }
+
+    private fun observeMovies() {
+        viewModel.movies.observe(viewLifecycleOwner, Observer {
+            movies.clear()
+            movies.addAll(it)
+            movieSelectAdapter.notifyDataSetChanged()
+        })
+
+        viewModel.errorText.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun onSubmitClick() {
+        viewModel.getMoviesByYear(etYear.text.toString())
+    }
+
+    private fun onMovieClick(movie: Movie) {
+        viewModel.setCurrentSelectedMovie(movie)
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+    }
+
+
 
 }
