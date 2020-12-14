@@ -33,7 +33,7 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setCurrentSelectedMovie(newMovie: Movie) {
        viewModelScope.launch {
-           moviesRepository.showMovie(newMovie)
+           selectedMovie.value = newMovie
        }
     }
 }

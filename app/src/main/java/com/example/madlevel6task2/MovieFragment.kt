@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+
 class MovieFragment : Fragment() {
     private val viewModel: MovieViewModel by activityViewModels()
     private val movies = arrayListOf<Movie>()

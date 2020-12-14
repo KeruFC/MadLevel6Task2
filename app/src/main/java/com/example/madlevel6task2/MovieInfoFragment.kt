@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_movie_info.*
@@ -35,8 +36,8 @@ class MovieInfoFragment : Fragment() {
     private fun initViews() {
         currentMovie = viewModel.selectedMovie.value!!
 
-        Glide.with(requireContext()).load(currentMovie.getPosterURL()).into(ivMovieThumbnail)
-        Glide.with(requireContext()).load(currentMovie.getBackDropURL()).into(ivPoster)
+        Glide.with(requireContext()).load(currentMovie.getPosterURL()).into(ivPoster)
+        Glide.with(requireContext()).load(currentMovie.getBackDropURL()).into(ivBackdrop)
         tvRelease.text = currentMovie.releaseDate
         tvOverview.text = currentMovie.overview
         tvTitle.text = currentMovie.title
